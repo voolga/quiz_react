@@ -11,6 +11,4 @@ export const WelcomeScreen = () => {
             <ButtonsGroup />
         </div>
     )
-
-
 }
