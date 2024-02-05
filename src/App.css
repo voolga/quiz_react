@@ -3,20 +3,9 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
 
 @keyframes logo-spin {
   from {
@@ -40,3 +29,10 @@
 .read-the-docs {
   color: #888;
 }
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+}
+
