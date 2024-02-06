@@ -1,5 +1,9 @@
 .question_wrapper {
   font-family: 'Courier Prime', monospace;
+  /* font-family: 'Montserrat', sans-serif; */
+  /* font-family: 'Roboto Mono', monospace; */
+  font-weight: 400;
+  font-size: 1.2rem;
 }
 
 .question_area {
@@ -18,6 +22,7 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   padding: 10px;
+
 }
 
 .answer_item {
@@ -29,7 +34,7 @@
 }
 
 .question_header {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-family: 'Honk', system-ui;
   margin: 0;
 }
