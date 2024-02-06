@@ -1,6 +1,6 @@
 const inputs = {
     categoryInput: {
-        text: 'Category:',
+        text: 'Choose сategory:',
         id: 'category',
         options: ['JS', 'React'],
         className: 'category-input'
@@ -15,7 +15,7 @@ const inputs = {
     typeInput: {
         text: 'Choose type',
         id: 'type',
-        options: ['true', 'false'],
+        options: ['true/false', 'multiple choise'],
         className: 'type-input'
 
     },

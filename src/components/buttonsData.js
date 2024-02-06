@@ -1,13 +1,13 @@
 const buttons = {
     startNewGameBtn: {
         text: 'Start new game',
-        className: 'new-game-btn',
+        className: 'new_game',
         buttonType: 'submit',
         formaction: ''
     },
     seeStatisticsBtn: {
-        text: 'See my statistics',
-        className: 'see-stat-btn',
+        text: 'See statistics',
+        className: 'see_stat',
         buttonType: 'button',
         formaction: ''
     }

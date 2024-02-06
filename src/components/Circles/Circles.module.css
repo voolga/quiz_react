@@ -1,0 +1,14 @@
+.circle_wrapper {
+  width: 90px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.circle {
+  background-color: var(--pink);
+  border-radius: 100px;
+  width: 10px;
+  height: 10px;
+}
