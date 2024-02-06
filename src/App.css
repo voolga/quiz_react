@@ -30,9 +30,4 @@
   color: #888;
 }
 
-.screen {
-  display: flex;
-  flex-direction: column;
-  min-width: 400px;
-}
 
