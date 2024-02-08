@@ -7,9 +7,9 @@ import { WelcomeScreen } from './app/WelcomeScreen/WelcomeScreen'
 function App() {
   return (
     <>
-      {/* <WelcomeScreen/>   */}
+      <WelcomeScreen/>  
       {/* <QuizScreen/> */}
-      <ResultScreen/>
+      {/* <ResultScreen/> */}
     </>
   )
 }
