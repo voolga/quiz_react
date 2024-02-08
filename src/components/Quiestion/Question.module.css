@@ -1,9 +1,7 @@
 .question_wrapper {
-  font-family: 'Courier Prime', monospace;
-  /* font-family: 'Montserrat', sans-serif; */
-  /* font-family: 'Roboto Mono', monospace; */
+  font-family: 'Press Start 2P', system-ui;
   font-weight: 400;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .question_area {
@@ -13,7 +11,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
+  padding: 10px 20px;
   margin: 25px 0 20px;
 }
 
@@ -21,7 +19,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  padding: 10px;
+  padding: 10px 0;
 
 }
 

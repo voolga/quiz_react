@@ -11,49 +11,48 @@
   animation: myAnim 0.8s ease 0s 1 normal forwards;
 }
 
-
 @keyframes myAnim {
-	0% {
-		animation-timing-function: ease-in;
-		opacity: 0;
-		transform: translateY(-250px);
-	}
+  0% {
+    animation-timing-function: ease-in;
+    opacity: 0;
+    transform: translateY(-250px);
+  }
 
-	38% {
-		animation-timing-function: ease-out;
-		opacity: 1;
-		transform: translateY(0);
-	}
+  38% {
+    animation-timing-function: ease-out;
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-	55% {
-		animation-timing-function: ease-in;
-		transform: translateY(-65px);
-	}
+  55% {
+    animation-timing-function: ease-in;
+    transform: translateY(-65px);
+  }
 
-	72% {
-		animation-timing-function: ease-out;
-		transform: translateY(0);
-	}
+  72% {
+    animation-timing-function: ease-out;
+    transform: translateY(0);
+  }
 
-	81% {
-		animation-timing-function: ease-in;
-		transform: translateY(-28px);
-	}
+  81% {
+    animation-timing-function: ease-in;
+    transform: translateY(-28px);
+  }
 
-	90% {
-		animation-timing-function: ease-out;
-		transform: translateY(0);
-	}
+  90% {
+    animation-timing-function: ease-out;
+    transform: translateY(0);
+  }
 
-	95% {
-		animation-timing-function: ease-in;
-		transform: translateY(-8px);
-	}
+  95% {
+    animation-timing-function: ease-in;
+    transform: translateY(-8px);
+  }
 
-	100% {
-		animation-timing-function: ease-out;
-		transform: translateY(0);
-	}
+  100% {
+    animation-timing-function: ease-out;
+    transform: translateY(0);
+  }
 }
 
 .inputs_wrapper {
@@ -64,6 +63,26 @@
   font-family: 'Press Start 2P', system-ui;
 }
 
+input,
+select {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--blue);
+  color: white;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  margin: 15px;
+}
+
+input:hover,
+select:hover {
+  border-color: var(--lblue);
+}
+
 .header_wrapper {
   background-color: var(--blue);
   border: #5169a2 2px solid;
@@ -72,7 +91,7 @@
   flex-direction: column;
   align-items: center;
   padding: 10px;
-  margin-bottom:20px;
+  margin-bottom: 20px;
 }
 
 h1 {
@@ -85,18 +104,35 @@ h1 {
   margin: 0;
   margin-bottom: 5px;
   font-size: 3rem;
-
 }
 
-h2, h3 {
+h2,
+h3 {
   font-size: 2rem;
   font-family: 'Honk', system-ui;
 }
 
 .btns_wrapper {
   display: flex;
-  align-items: center;
   flex-direction: column;
-  justify-content: center;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  font-size: 1rem;
   font-family: 'Press Start 2P', system-ui;
+  color: var(--yellow);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50px;
+  padding: 1em 2em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.btn:hover {
+  transform: scale(1.15);
 }
