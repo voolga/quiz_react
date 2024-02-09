@@ -1,0 +1,79 @@
+.result_wrapper {
+  font-family: 'Press Start 2P', system-ui;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.2;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.result_text_area {
+  background-color: var(--blue);
+  border: #5169a2 2px solid;
+  border-radius: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 20px;
+  margin: 25px 0 20px;
+}
+
+.result_config_area {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 10px;
+}
+
+.result_config_item {
+  background-color: var(--blue);
+  border-radius: 100px;
+  padding: 15px 25px;
+}
+
+.question_header {
+  font-size: 2.5rem;
+  font-family: 'Honk', system-ui;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+}
+
+.game_over {
+  font-family: 'Press Start 2P', system-ui;
+  font-size: 4rem;
+}
+
+.btns_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.btn {
+  font-size: 1rem;
+  font-family: 'Press Start 2P', system-ui;
+  color: #ffd800;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50px;
+  padding: 1em 2em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.btn:hover {
+  transform: scale(1.15);
+}
+
+h2 {
+  margin: 20px 0 0;
+}
