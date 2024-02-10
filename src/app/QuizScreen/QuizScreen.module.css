@@ -17,9 +17,16 @@
   top: 0;
   right: 32px;
   font-family: 'Press Start 2P', system-ui;
+  color: #ffd800;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 50px;
+  text-transform: uppercase;
+  padding: 1em 2em;
+  border: none;
 }
 
 .end_game:hover {
-  background-color: black;
-  border-color: #5169a2;
+  transform: scale(1.15);
 }
+

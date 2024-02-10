@@ -5,10 +5,16 @@ import s from './WelcomeScreen.module.css'
 import { Button } from '../../components/Button/Button'
 import welcomeBtns from '../../components/welcomeButtonsData'
 import { Circles } from '../../components/Circles/Circles'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 
 const gridAreas = ['a', 'b', 'c', 'd']
 
 export const WelcomeScreen = () => {
+  const navigation = useNavigate()
+  const handlerFn = (to) => {
+    navigation(to)
+  }
+
   return (
     <>
       <div className={s.container}>
@@ -25,7 +31,11 @@ export const WelcomeScreen = () => {
         </div>
         <div className={s.btns_wrapper}>
           {Object.values(welcomeBtns).map((item, index) => (
-            <Button className={s.btn} key={index} {...item} />
+            <Button
+              handlerFn={() => handlerFn(item.to)}
+              className={s.btn}
+              key={index}
+              {...item}></Button>
           ))}
         </div>
       </div>

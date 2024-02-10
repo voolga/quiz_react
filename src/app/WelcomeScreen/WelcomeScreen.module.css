@@ -11,6 +11,13 @@
   animation: myAnim 0.8s ease 0s 1 normal forwards;
 }
 
+.circles_wrapper {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 @keyframes myAnim {
   0% {
     animation-timing-function: ease-in;

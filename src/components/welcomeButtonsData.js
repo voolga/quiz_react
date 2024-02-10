@@ -2,12 +2,14 @@ const welcomeBtns = {
     startNewGameBtn: {
         text: 'Start new game',
         buttonType: 'submit',
-        formaction: ''
+        formaction: '',
+        to: '/quiz',
     },
     seeStatisticsBtn: {
         text: 'See statistics',
         buttonType: 'button',
-        formaction: ''
+        formaction: '',
+        to: '/stat',
     }
 };    
 
