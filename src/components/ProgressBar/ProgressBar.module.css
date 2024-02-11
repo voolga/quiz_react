@@ -13,7 +13,5 @@
   box-shadow:
     0 0 10px #ff41ff,
     0 0 20px #ff41ff;
-
-  /* filter: drop-shadow(0 0 5px #ff41ff); */
   transition: width 0.5s ease-out;
 }

@@ -9,7 +9,6 @@ export function Question() {
       <div className={s.question_wrapper}>
         <ProgressBar />
         <div className={s.question_area}>
-          {/* <Circles /> */}
           <h2 className={s.question_header}>Question 3 of 7</h2>
           <p className="question_text">{questionData.text}</p>
         </div>
