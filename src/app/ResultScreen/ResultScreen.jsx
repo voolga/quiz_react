@@ -13,7 +13,7 @@ export function ResultScreen() {
           <div className={s.result_text_area}>
             <Circles />
             <h2 className={s.question_header}>Thanks for completing this quiz. Your results:</h2>
-            <p className="question_text">
+            <p>
               You answered correctly on 5 from 10 questions in 7 minutes.
               <br />
               <span> Your quiz parameters are below:</span>
