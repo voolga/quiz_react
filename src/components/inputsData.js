@@ -3,7 +3,7 @@ const inputs = {
         text: 'Choose сategory:',
         id: 'category',
         options: ['JS', 'React'],
-        className: 'category-input'
+        className: 'category-input',
     },
     difficultyInput: {
         text: 'Choose difficulty',
