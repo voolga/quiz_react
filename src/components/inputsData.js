@@ -15,7 +15,7 @@ const inputs = {
     typeInput: {
         text: 'Choose type',
         id: 'type',
-        options: ['true/false', 'multiple choise'],
+        options: ['boolean', 'multiple'],
         className: 'type-input'
 
     },

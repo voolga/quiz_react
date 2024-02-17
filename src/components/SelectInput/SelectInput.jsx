@@ -1,7 +1,22 @@
 export const SelectInput = ({ text, id, options, style, setSelectValue }) => {
-  const optionItems = options
-    ? options.map((item, index) => <option key={index} value={item}>{item}</option>)
-    : null
+  let optionItems;
+  if (text === 'Choose сategory:') {
+    optionItems = options
+      ? options.map((item) => (
+          <option key={item.id} value={item.id}>
+            {item.name}
+          </option>
+        ))
+      : null
+  } else {
+    optionItems = options
+      ? options.map((item, i) => (
+          <option key={i} value={item}>
+            {item}
+          </option>
+        ))
+      : null
+  }
 
   return (
     <>

@@ -14,8 +14,9 @@ import {
   setTime,
   setNumberOfQuestion
 } from '../../redux/reducers/settingsReducer'
-
-const gridAreas = ['a', 'b', 'c', 'd']
+import { useEffect } from 'react'
+import { fetchCategories } from '../../redux/reducers/categoriesReducer'
+import inputs from './../../components/inputsData'
 
 export const WelcomeScreen = () => {
   const navigation = useNavigate()
@@ -29,8 +30,8 @@ export const WelcomeScreen = () => {
     dispatch(setNumberOfQuestion(newQty))
   }
 
-  function setCategoryValue(newCategory) {
-    dispatch(setCategory(newCategory))
+  function setCategoryValue(newCategoryId) {
+    dispatch(setCategory(newCategoryId))
   }
 
   function setDifficultyValue(newDiff) {
@@ -50,7 +51,7 @@ export const WelcomeScreen = () => {
   })
 
   const categoryValue = useSelector((state) => {
-    return state.settings.category
+    return state.settings.categoryId
   })
 
   const diffValue = useSelector((state) => {
@@ -65,6 +66,12 @@ export const WelcomeScreen = () => {
     return state.settings.time
   })
 
+  useEffect(() => {
+    dispatch(fetchCategories())
+  }, [])
+
+  const categoriesList = useSelector((state) => state.categories.categories.trivia_categories)
+
   return (
     <>
       {categoryValue}
@@ -74,7 +81,7 @@ export const WelcomeScreen = () => {
       {timeValue}
       <div className={s.container}>
         <div className={s.header_wrapper}>
-          <Circles />
+          {/* <Circles /> */}
           <h1>TRUE OR FALSE?</h1>
         </div>
         <h2>↓↓↓↓↓↓↓↓↓↓↓↓↓↓</h2>
@@ -83,28 +90,28 @@ export const WelcomeScreen = () => {
             text="Choose сategory:"
             style={{ gridArea: 'a' }}
             id="category"
-            options={['js', 'react']}
+            options={categoriesList}
             setSelectValue={setCategoryValue}
           />
           <SelectInput
             text="Choose difficulty:"
             style={{ gridArea: 'b' }}
             id="difficulty"
-            options={['easy', 'medium', 'hard']}
+            options={inputs.difficultyInput.options}
             setSelectValue={setDifficultyValue}
           />
           <SelectInput
             text="Choose type:"
             style={{ gridArea: 'c' }}
             id="type"
-            options={['true/false', 'multiple choise']}
+            options={inputs.typeInput.options}
             setSelectValue={setTypeValue}
           />
           <SelectInput
             text="Choose time:"
             style={{ gridArea: 'd' }}
             id="time"
-            options={['1m', '2m', '5m']}
+            options={inputs.timeInput.options}
             setSelectValue={setTimeValue}
           />
           <NumberInput style={{ gridArea: 'e' }} setQuestionQty={setQuestionQty} />
