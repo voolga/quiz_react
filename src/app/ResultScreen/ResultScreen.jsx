@@ -1,12 +1,7 @@
 import s from './ResultScreen.module.css'
-import inputs from '../../components/inputsData'
-import { Button } from '../../components/Button/Button'
 import { Circles } from '../../components/Circles/Circles'
-import resultBtns from '../../components/resultButtonsData'
 import { useSelector } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
-
-
 
 export function ResultScreen() {
   const gameSettings = useSelector((state) => state.settings)

@@ -4,9 +4,8 @@ import s from './WelcomeScreen.module.css'
 import { Button } from '../../components/Button/Button'
 import welcomeBtns from '../../components/welcomeButtonsData'
 import { Circles } from '../../components/Circles/Circles'
-import { Link, Outlet, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { useRef } from 'react'
 import {
   setCategory,
   setDifficulty,
@@ -81,7 +80,7 @@ export const WelcomeScreen = () => {
       {timeValue}
       <div className={s.container}>
         <div className={s.header_wrapper}>
-          {/* <Circles /> */}
+          <Circles />
           <h1>TRUE OR FALSE?</h1>
         </div>
         <h2>↓↓↓↓↓↓↓↓↓↓↓↓↓↓</h2>

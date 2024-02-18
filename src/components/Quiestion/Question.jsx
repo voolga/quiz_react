@@ -1,8 +1,5 @@
 import s from './Question.module.css'
-import questionData from '../questionData'
 import { Circles } from '../Circles/Circles'
-import { ProgressBar } from '../ProgressBar/ProgressBar'
-import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
 
 export function Question({
@@ -44,7 +41,6 @@ export function Question({
   function handleClick(answer) {
     setSelectedAnswer(answer)
     setIsAnswered(true)
-    // getNextQuestion(answer)
   }
 
   function getAnswerClass(answer) {
@@ -61,6 +57,7 @@ export function Question({
       <div className={s.question_wrapper}>
         <div className={s.question_area}>
           <h2 className={s.question_header}>
+            <Circles />
             Question {currentQuestionNumber + 1} of {questionQty}
           </h2>
           <p className={s.question_text}>{currentQuestionData.question}</p>
@@ -146,91 +143,4 @@ export function Question({
 //           ]
 //       }
 //   ]
-// }
-
-// {
-
-//   "questionQuiz": {
-//       "queries": {
-//           "getQuestions({\"categoryId\":\"9\",\"difficulty\":\"easy\",\"questionQty\":\"5\",\"type\":\"multiple\"})": {
-//               "status": "fulfilled",
-//               "endpointName": "getQuestions",
-//               "requestId": "aDdKxFObgZoVR3QIHJXYH",
-//               "originalArgs": {
-//                   "questionQty": "5",
-//                   "categoryId": "9",
-//                   "difficulty": "easy",
-//                   "type": "multiple"
-//               },
-//               "startedTimeStamp": 1708124315897,
-//               "data": {
-//                   "response_code": 0,
-//                   "results": [
-//                       {
-//                           "type": "multiple",
-//                           "difficulty": "easy",
-//                           "category": "General Knowledge",
-//                           "question": "Who invented the first ever chocolate bar, in 1847?",
-//                           "correct_answer": "Joseph Fry",
-//                           "incorrect_answers": [
-//                               "Andrew Johnson",
-//                               "John Cadbury",
-//                               "John Tyler"
-//                           ]
-//                       },
-//                       {
-//                           "type": "multiple",
-//                           "difficulty": "easy",
-//                           "category": "General Knowledge",
-//                           "question": "When one is &quot;envious&quot;, they are said to be what color?",
-//                           "correct_answer": "Green",
-//                           "incorrect_answers": [
-//                               "Red",
-//                               "Blue",
-//                               "Yellow"
-//                           ]
-//                       },
-//                       {
-//                           "type": "multiple",
-//                           "difficulty": "easy",
-//                           "category": "General Knowledge",
-//                           "question": "What nuts are used in the production of marzipan?",
-//                           "correct_answer": "Almonds",
-//                           "incorrect_answers": [
-//                               "Peanuts",
-//                               "Walnuts",
-//                               "Pistachios"
-//                           ]
-//                       },
-//                       {
-//                           "type": "multiple",
-//                           "difficulty": "easy",
-//                           "category": "General Knowledge",
-//                           "question": "What is &quot;dabbing&quot;?",
-//                           "correct_answer": "A dance",
-//                           "incorrect_answers": [
-//                               "A medical procedure",
-//                               "A sport",
-//                               "A language"
-//                           ]
-//                       },
-//                       {
-//                           "type": "multiple",
-//                           "difficulty": "easy",
-//                           "category": "General Knowledge",
-//                           "question": "Waluigi&#039;s first appearance was in what game?",
-//                           "correct_answer": "Mario Tennis 64 (N64)",
-//                           "incorrect_answers": [
-//                               "Wario Land: Super Mario Land 3",
-//                               "Mario Party (N64)",
-//                               "Super Smash Bros. Ultimate"
-//                           ]
-//                       }
-//                   ]
-//               },
-//               "fulfilledTimeStamp": 1708124316563
-//           }
-//       },
-
-//   }
 // }
