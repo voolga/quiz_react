@@ -32,7 +32,7 @@ export function Loader() {
           />
         </rect>
 
-        <text x="150" y="145" font-family="'Press Start 2P'" font-size="20" fill="yellow">
+        <text x="150" y="145" fontFamily="'Press Start 2P'" fontSize="20" fill="yellow">
           Loading quiz...
         </text>
       </svg>

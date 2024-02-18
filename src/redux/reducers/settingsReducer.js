@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   categoryId: '9',
   difficulty: 'easy',
-  type: 'multiple',
+  type: 'boolean',
   time: '1m',
   questionQty: '5'
 }

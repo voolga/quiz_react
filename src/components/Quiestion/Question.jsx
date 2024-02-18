@@ -11,10 +11,8 @@ export function Question({
   currentQuestionNumber,
   getNextQuestion
 }) {
-  
   const [selectedAnswer, setSelectedAnswer] = useState(null)
   const [isAnswered, setIsAnswered] = useState(false)
-  let isCorrect = false
 
   const rightAnswer = currentQuestionData.correct_answer
   const wrongAnswers = currentQuestionData.incorrect_answers
@@ -33,26 +31,25 @@ export function Question({
   }, [])
 
   useEffect(() => {
-    if (isAnswered === true) {
-      setTimeout(() => {
-        getNextQuestion()
-      }, 3000)
-    } 
-    // else {
-    //   return null
-    // }
+    if (isAnswered) {
+      const timeOfShowingAnswer = setTimeout(() => {
+        setIsAnswered(false)
+        getNextQuestion(selectedAnswer)
+      }, 1200)
+
+      return () => clearTimeout(timeOfShowingAnswer)
+    }
   }, [isAnswered])
 
-  function handleAnswer(answer) {
+  function handleClick(answer) {
     setSelectedAnswer(answer)
     setIsAnswered(true)
+    // getNextQuestion(answer)
   }
 
   function getAnswerClass(answer) {
-    
     if (!isAnswered) return s.answer_item
     if (answer === rightAnswer) {
-      isCorrect = true
       return `${s.answer_item} ${s.correct}`
     }
     if (answer === selectedAnswer) return `${s.answer_item} ${s.incorrect}`
@@ -74,7 +71,7 @@ export function Question({
           style={isAnswered ? { pointerEvents: 'none', cursor: 'not-allowed' } : null}>
           {answersForOneQuestion.map((answer, i) => {
             return (
-              <div className={getAnswerClass(answer)} key={i} onClick={() => handleAnswer(answer)}>
+              <div className={getAnswerClass(answer)} key={i} onClick={() => handleClick(answer)}>
                 {answer}
               </div>
             )
@@ -84,28 +81,6 @@ export function Question({
     </>
   )
 }
-
-//   getSuffledArray(answersForOneQuestion);
-
-//   return (
-//     <>
-//       <div className={s.question_wrapper}>
-//         {/* другие элементы */}
-//         <div className={s.answer_area}>
-//           {answersForOneQuestion.map((answer, i) => (
-//             <div
-//               className={getAnswerClass(answer)}
-//               key={i}
-//               onClick={() => handleAnswer(answer)}
-//             >
-//               {answer}
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
 
 // {
 //   "response_code": 0,

@@ -3,7 +3,7 @@ export const NumberInput = ({style, setQuestionQty}) => {
     <>
       <div className="input_item" style={style}>
 
-        <label for="number-of-questions">Number of Questions:</label>
+        <label htmlFor="number-of-questions">Number of Questions:</label>
         <input
           type="number"
           id="number-of-questions"

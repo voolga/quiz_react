@@ -21,7 +21,7 @@ export const SelectInput = ({ text, id, options, style, setSelectValue }) => {
   return (
     <>
       <div className="input_item" style={style}>
-        <label for={id}>{text}</label>
+        <label htmlFor={id}>{text}</label>
         <select id={id} onChange={(e) => setSelectValue(e.target.value)}>
           {optionItems}
         </select>

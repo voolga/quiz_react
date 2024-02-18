@@ -11,7 +11,8 @@ export const questionQuiz = createApi({
         } else {
           console.log('Не все данные были переданы верно для формирования запроса на получение списка вопросов')
         }
-      }
+      },
+      keepUnusedDataFor: 0,
     })
   })
 })

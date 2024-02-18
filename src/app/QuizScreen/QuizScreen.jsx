@@ -2,30 +2,45 @@ import { useState, useEffect } from 'react'
 import { Question } from '../../components/Quiestion/Question'
 import s from './QuizScreen.module.css'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useGetQuestionsQuery } from '../../redux/reducers/questionsQuiz'
 import { Loader } from '../../components/Loader/Loader'
 
 export function QuizScreen() {
-  debugger
+  const navigate = useNavigate()
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0)
   const [correctAnswersValue, setCorrectAnswersValue] = useState(0)
+  const [gameIsDone, setGameIsDone] = useState(false)
   const gameSettings = useSelector((state) => state.settings)
   let { questionQty, categoryId, difficulty, type } = gameSettings
-  const { data, error, isLoading, isFetching } = useGetQuestionsQuery({
+  const { data, isFetching } = useGetQuestionsQuery({
     questionQty,
     categoryId,
     difficulty,
     type
   })
 
-  if (isFetching) return <Loader />
+  const currentQuestionData = data?.results[currentQuestionNumber]
+  
+  useEffect(() => {
+    if (gameIsDone) {
+      navigate('/result', { state: { correctAnswersValue: correctAnswersValue } });
+    }
+  }, [gameIsDone, navigate])
 
-  const currentQuestionData = data.results[currentQuestionNumber]
+  function getNextQuestion(selectedAnswer) {
+    if (selectedAnswer === currentQuestionData.correct_answer) {
+      setCorrectAnswersValue((v) => v + 1)
+    }
 
-  function getNextQuestion() {
-    setCurrentQuestionNumber((v) => v + 1)
+    if (currentQuestionNumber + 1 < questionQty) {
+      setCurrentQuestionNumber((v) => v + 1)
+    } else {
+      setGameIsDone(true)
+    }
   }
+
+  if (isFetching) return <Loader />
 
   return (
     <>
