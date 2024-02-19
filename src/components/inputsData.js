@@ -3,7 +3,7 @@ const inputs = {
         text: 'Choose сategory:',
         id: 'category',
         options: ['JS', 'React'],
-        className: 'category-input'
+        className: 'category-input',
     },
     difficultyInput: {
         text: 'Choose difficulty',
@@ -15,7 +15,7 @@ const inputs = {
     typeInput: {
         text: 'Choose type',
         id: 'type',
-        options: ['true/false', 'multiple choise'],
+        options: ['boolean', 'multiple'],
         className: 'type-input'
 
     },

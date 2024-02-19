@@ -1,23 +1,75 @@
 import s from './Question.module.css'
-import questionData from '../questionData'
 import { Circles } from '../Circles/Circles'
-import { ProgressBar } from '../ProgressBar/ProgressBar'
+import { useState, useEffect } from 'react'
 
-export function Question() {
+export function Question({
+  currentQuestionData,
+  questionQty,
+  currentQuestionNumber,
+  getNextQuestion
+}) {
+  const [selectedAnswer, setSelectedAnswer] = useState(null)
+  const [isAnswered, setIsAnswered] = useState(false)
+
+  const rightAnswer = currentQuestionData.correct_answer
+  const wrongAnswers = currentQuestionData.incorrect_answers
+  const answersForOneQuestion = [...wrongAnswers, rightAnswer]
+
+  function getSuffledArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[array[i], array[j]] = [array[j], array[i]]
+    }
+    return array
+  }
+
+  useEffect(() => {
+    getSuffledArray(answersForOneQuestion)
+  }, [])
+
+  useEffect(() => {
+    if (isAnswered) {
+      const timeOfShowingAnswer = setTimeout(() => {
+        setIsAnswered(false)
+        getNextQuestion(selectedAnswer)
+      }, 1200)
+
+      return () => clearTimeout(timeOfShowingAnswer)
+    }
+  }, [isAnswered])
+
+  function handleClick(answer) {
+    setSelectedAnswer(answer)
+    setIsAnswered(true)
+  }
+
+  function getAnswerClass(answer) {
+    if (!isAnswered) return s.answer_item
+    if (answer === rightAnswer) {
+      return `${s.answer_item} ${s.correct}`
+    }
+    if (answer === selectedAnswer) return `${s.answer_item} ${s.incorrect}`
+    return s.answer_item
+  }
+
   return (
     <>
       <div className={s.question_wrapper}>
-        <ProgressBar />
         <div className={s.question_area}>
-          <h2 className={s.question_header}>Question 3 of 7</h2>
-          <p className="question_text">{questionData.text}</p>
+          <h2 className={s.question_header}>
+            <Circles />
+            Question {currentQuestionNumber + 1} of {questionQty}
+          </h2>
+          <p className={s.question_text}>{currentQuestionData.question}</p>
         </div>
 
-        <div className={s.answer_area}>
-          {questionData.options.map((item, i) => {
+        <div
+          className={s.answer_area}
+          style={isAnswered ? { pointerEvents: 'none', cursor: 'not-allowed' } : null}>
+          {answersForOneQuestion.map((answer, i) => {
             return (
-              <div className={s.answer_item} key={i}>
-                {item}
+              <div className={getAnswerClass(answer)} key={i} onClick={() => handleClick(answer)}>
+                {answer}
               </div>
             )
           })}
@@ -26,3 +78,4 @@ export function Question() {
     </>
   )
 }
+

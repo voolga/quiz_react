@@ -1,10 +1,16 @@
 import s from './ResultScreen.module.css'
-import inputs from '../../components/inputsData'
-import { Button } from '../../components/Button/Button'
 import { Circles } from '../../components/Circles/Circles'
-import resultBtns from '../../components/resultButtonsData'
+import { useSelector } from 'react-redux'
+import { Link, useLocation } from 'react-router-dom'
 
 export function ResultScreen() {
+  const gameSettings = useSelector((state) => state.settings)
+  let { questionQty, categoryId, difficulty, type, time } = gameSettings
+  let settedTimeValue = time.slice(0, 1)
+
+  const location = useLocation();
+  const correctAnswersValue = location.state.correctAnswersValue;
+
   return (
     <>
       <div className={s.container}>
@@ -14,24 +20,24 @@ export function ResultScreen() {
             <Circles />
             <h2 className={s.question_header}>Thanks for completing this quiz. Your results:</h2>
             <p>
-              You answered correctly on 5 from 10 questions in 7 minutes.
-              <br />
-              <span> Your quiz parameters are below:</span>
+              You answered correctly on {correctAnswersValue} from {questionQty} questions in {settedTimeValue} minutes.
             </p>
           </div>
 
           <div className={s.result_config_area}>
-            {Object.values(inputs).map((item, i) => (
-              <div className={s.result_config_item} key={i}>
-                {item.id}
-              </div>
-            ))}
+            <div className={s.result_config_item}>Category: {categoryId}</div>
+            <div className={s.result_config_item}>Difficulty: {difficulty}</div>
+            <div className={s.result_config_item}>Type: {type}</div>
+            <div className={s.result_config_item}>Time: {time}</div>
           </div>
         </div>
         <div className={s.btns_wrapper}>
-          {Object.values(resultBtns).map((item, index) => (
-            <Button className={s.btn} key={index} {...item} />
-          ))}
+          <Link to={'/quiz'} className={s.btn}>
+              Restart
+            </Link>
+            <Link to={'/'} className={s.btn}>
+              Start new game
+            </Link>
         </div>
       </div>
     </>

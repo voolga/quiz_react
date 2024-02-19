@@ -5,8 +5,8 @@ export function Circles() {
     <>
       <div className={s.circle_wrapper}>
         {['green', 'yellow', 'orange', 'fuchsia', 'deepskyblue', 'blueviolet'].map(
-          (item) => {
-            return <div className={s.circle} style={{ backgroundColor: `${item}` }}></div>
+          (item, i) => {
+            return <div key={i} className={s.circle} style={{ backgroundColor: `${item}` }}></div>
           }
         )}
       </div>
