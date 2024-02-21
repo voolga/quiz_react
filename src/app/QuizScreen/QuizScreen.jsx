@@ -13,6 +13,7 @@ import {
   setChoosenDiff,
   setChoosenType
 } from '../../redux/reducers/statReducer'
+import { Timer } from '../../components/Timer/Timer'
 
 export function QuizScreen() {
   const navigate = useNavigate()
@@ -27,6 +28,11 @@ export function QuizScreen() {
     difficulty,
     type
   })
+  const [startTimer, setStartTimer] = useState(false);
+
+  useEffect(() => {
+    setStartTimer(true);
+  }, []);
 
   useEffect(() => {
     if (gameIsDone) {
@@ -74,7 +80,7 @@ export function QuizScreen() {
     } else {
       setGameIsDone(true)
     }
-
+    
     addDataToStat()
   }
 
@@ -85,12 +91,24 @@ export function QuizScreen() {
     dispatch(setChoosenType(type))
   }
 
+  function handleTimeRemaining() {
+    setGameIsDone(true)
+    navigate('/result', {
+      state: { correctAnswersValue: correctAnswersValue, category: currentQuestionData.category }
+    })
+  }
+
   if (isFetching) return <Loader />
 
   return (
     <>
       <div className={s.container}>
-        <div className={s.timer}>01:00</div>
+        <div className={s.timer}>
+          <Timer 
+          handleTimeRemaining={handleTimeRemaining}
+          start={startTimer}
+          />
+        </div>
         <Question
           currentQuestionNumber={currentQuestionNumber}
           questionQty={questionQty}

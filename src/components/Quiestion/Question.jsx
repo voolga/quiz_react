@@ -3,7 +3,6 @@ import { Circles } from '../Circles/Circles'
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
-
 export function Question({
   currentQuestionData,
   questionQty,
@@ -17,17 +16,14 @@ export function Question({
   const wrongAnswers = currentQuestionData.incorrect_answers
   const answersForOneQuestion = [...wrongAnswers, rightAnswer]
 
-  function getSuffledArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
+  const getSuffledArray = (array) => {
+    const arrayCopy = [...array]
+    for (let i = arrayCopy.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
-      ;[array[i], array[j]] = [array[j], array[i]]
+      ;[arrayCopy[i], arrayCopy[j]] = [arrayCopy[j], arrayCopy[i]]
     }
-    return array
+    return arrayCopy
   }
-
-  useEffect(() => {
-    getSuffledArray(answersForOneQuestion)
-  }, [])
 
   useEffect(() => {
     if (isAnswered) {
@@ -39,6 +35,13 @@ export function Question({
       return () => clearTimeout(timeOfShowingAnswer)
     }
   }, [isAnswered])
+
+  const shuffledAnswers = currentQuestionData
+    ? getSuffledArray([
+        ...currentQuestionData.incorrect_answers,
+        currentQuestionData.correct_answer
+      ])
+    : []
 
   function handleClick(answer) {
     setSelectedAnswer(answer)
@@ -57,7 +60,7 @@ export function Question({
     return state.stat
   })
 
-  console.log(totalQuestionsAmount);
+  console.log(totalQuestionsAmount)
   return (
     <>
       <div className={s.question_wrapper}>
@@ -72,7 +75,7 @@ export function Question({
         <div
           className={s.answer_area}
           style={isAnswered ? { pointerEvents: 'none', cursor: 'not-allowed' } : null}>
-          {answersForOneQuestion.map((answer, i) => {
+          {shuffledAnswers.map((answer, i) => {
             return (
               <div className={getAnswerClass(answer)} key={i} onClick={() => handleClick(answer)}>
                 {answer}
@@ -84,4 +87,3 @@ export function Question({
     </>
   )
 }
-
