@@ -2,11 +2,8 @@ import s from './ResultScreen.module.css'
 import { Circles } from '../../components/Circles/Circles'
 import { useSelector } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
-import { setSpendedTime } from '../../redux/reducers/statReducer'
-import { useDispatch } from 'react-redux'
 
 export function ResultScreen() {
-  const dispatch = useDispatch()
   const gameSettings = useSelector((state) => state.settings)
   const gameTimeState = useSelector((state) => state.time.game)
   const stat = useSelector((state) => state.stat)
@@ -15,10 +12,10 @@ export function ResultScreen() {
 
   const location = useLocation()
   const correctAnswersValue = location.state.correctAnswersValue
-  const spentTime = gameTimeState[gameTimeState.length - 1] - gameTimeState[0]
+  const spentTime = gameTimeState[1] - gameTimeState[0]
   console.log(gameTimeState);
   console.log(stat);
-  
+
 
   let spentTimeinSec = (spentTime / 1000).toFixed(0);
   const minutes = Math.floor(spentTimeinSec / 60)

@@ -7,7 +7,7 @@ export function Question({
   currentQuestionData,
   questionQty,
   currentQuestionNumber,
-  getNextQuestion
+  handleAnswer
 }) {
   const [selectedAnswer, setSelectedAnswer] = useState(null)
   const [isAnswered, setIsAnswered] = useState(false)
@@ -34,7 +34,7 @@ export function Question({
     if (isAnswered) {
       const timeOfShowingAnswer = setTimeout(() => {
         setIsAnswered(false)
-        getNextQuestion(selectedAnswer)
+        handleAnswer(selectedAnswer)
       }, 1200)
 
       return () => clearTimeout(timeOfShowingAnswer)

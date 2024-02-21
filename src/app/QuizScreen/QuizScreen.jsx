@@ -14,9 +14,7 @@ import {
   setChoosenType,
   setSpendedTime
 } from '../../redux/reducers/statReducer'
-import {
-  setGameTime
-} from '../../redux/reducers/timeHandlerReducer'
+import { setGameTime } from '../../redux/reducers/timeHandlerReducer'
 import { Timer } from '../../components/Timer/Timer'
 
 export function QuizScreen() {
@@ -39,7 +37,7 @@ export function QuizScreen() {
 
   useEffect(() => {
     const now = new Date().getTime()
-    dispatch(setGameTime({index: 0, value: now}))
+    dispatch(setGameTime({ index: 0, value: now }))
     setStartTimer(true)
   }, [])
 
@@ -48,7 +46,7 @@ export function QuizScreen() {
       navigate('/result', {
         state: {
           correctAnswersValue: correctAnswersValue,
-          category: currentQuestionData.category,
+          category: currentQuestionData.category
         }
       })
     }
@@ -78,21 +76,23 @@ export function QuizScreen() {
       }
     })
   }
-
-  function getNextQuestion(selectedAnswer) {
-    if (selectedAnswer === currentQuestionData.correct_answer) {
+  function checkAnswerAccuracy(answer) {
+    if (answer === currentQuestionData.correct_answer) {
       setCorrectAnswersValue((v) => v + 1)
       dispatch(setCorrectQuestionQty())
     }
+  }
+
+  function handleAnswer(selectedAnswer) {
+    checkAnswerAccuracy(selectedAnswer)
 
     if (currentQuestionNumber + 1 < questionQty) {
-      const now2 = new Date().getTime()
-      dispatch(setGameTime({index: 1, value: now2}))
       setCurrentQuestionNumber((v) => v + 1)
     } else {
       const now2 = new Date().getTime()
-      dispatch(setGameTime({index: 1, value: now2}))
-      dispatch(setSpendedTime(gameTimeState[1] - gameTimeState[0]))
+      dispatch(setGameTime({ index: 1, value: now2 }))
+      let difference = gameTimeState[1] - gameTimeState[0]
+      dispatch(setSpendedTime(difference))
       setGameIsDone(true)
     }
 
@@ -107,6 +107,9 @@ export function QuizScreen() {
   }
 
   function handleTimeExpiring() {
+    const now2 = new Date().getTime()
+    dispatch(setGameTime({ index: 1, value: now2 }))
+    dispatch(setSpendedTime(time))
     setGameIsDone(true)
     navigate('/result', {
       state: { correctAnswersValue: correctAnswersValue, category: currentQuestionData.category }
@@ -125,7 +128,7 @@ export function QuizScreen() {
           currentQuestionNumber={currentQuestionNumber}
           questionQty={questionQty}
           currentQuestionData={currentQuestionData}
-          getNextQuestion={getNextQuestion}
+          handleAnswer={handleAnswer}
         />
         <Link to={'/quiz/modal'} className={s.end_game}>
           End game
