@@ -5,12 +5,15 @@ import { Link, useLocation } from 'react-router-dom'
 
 export function ResultScreen() {
   const gameSettings = useSelector((state) => state.settings)
-  let { questionQty, difficulty, type, time } = gameSettings
+  let { categoryId, questionQty, difficulty, type, time } = gameSettings
   let settedTimeValue = time.slice(0, 1)
 
-  const location = useLocation();
-  const correctAnswersValue = location.state.correctAnswersValue;
-  const category = location.state.category;
+  const location = useLocation()
+  const correctAnswersValue = location.state.correctAnswersValue
+
+  const category = categoryId ? location.state.category : 'Random';
+  difficulty = difficulty || 'Random';
+  type = type || 'Random';
 
   return (
     <>
@@ -21,7 +24,8 @@ export function ResultScreen() {
             <Circles />
             <h2 className={s.question_header}>Thanks for completing this quiz. Your results:</h2>
             <p>
-              You answered correctly on {correctAnswersValue} from {questionQty} questions in {settedTimeValue} minutes.
+              You answered correctly on {correctAnswersValue} from {questionQty} questions in{' '}
+              {settedTimeValue} minutes.
             </p>
           </div>
 
@@ -34,11 +38,11 @@ export function ResultScreen() {
         </div>
         <div className={s.btns_wrapper}>
           <Link to={'/quiz'} className={s.btn}>
-              Restart
-            </Link>
-            <Link to={'/'} className={s.btn}>
-              Start new game
-            </Link>
+            Restart
+          </Link>
+          <Link to={'/'} className={s.btn}>
+            Start new game
+          </Link>
         </div>
       </div>
     </>
