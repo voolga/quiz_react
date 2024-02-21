@@ -19,14 +19,32 @@ export function StatisticScreen() {
   }, [])
 
   const gameStat = useSelector((state) => state.stat)
+  const percentOfCorrect = (gameStat.correctAnswers / gameStat.totalQuestionsQty * 100).toFixed(2)
 
   return (
     <>
-      <Timer />
       <div className={s.container}>
         <div className={s.stat_wrapper}>
           <h1 className={s.stat_header}>Statistics</h1>
           <div className={s.stat_area}>
+
+          <div className={s.stat_item}>
+              <h2 className={s.stat_item_header}>Total answered:</h2>
+              <div className={s.stat_item_content}>
+                {gameStat.totalQuestionsQty}
+              </div>
+            </div>
+
+            <div className={s.stat_item}>
+              <h2 className={s.stat_item_header}>Correct answers:</h2>
+              <div className={s.stat_item_content}>
+                {gameStat.correctAnswers} 
+                <br />
+                ({percentOfCorrect}%)
+              </div>
+            </div>
+
+
             <div className={s.stat_item}>
               <h2 className={s.stat_item_header}>Categories:</h2>
               <div className={s.stat_item_content} ref={ref}>
@@ -70,9 +88,10 @@ export function StatisticScreen() {
               </div>
             </div>
             <div className={s.stat_item}>
-              <h2 className={s.stat_item_header}>Time:</h2>
+              <h2 className={s.stat_item_header}>Time spent:</h2>
 
-              <div className={s.stat_item_content}>0 минут 0 секунд</div>
+              <div className={s.stat_item_content}>
+                0 минут 0 секунд</div>
             </div>
           </div>
         </div>

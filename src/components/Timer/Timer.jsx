@@ -23,14 +23,14 @@ function useCurrentTime(updateInterval, enabling, callback) {
   return now
 }
 
-export function Timer({ handleTimeRemaining, start }) {
+export function Timer({ handleTimeRemaining, start, settedTime }) {
   const [startTime, setStartTime] = useState()
 
   const currentTime = useCurrentTime(1000, startTime)
 
   const passedFromStart = currentTime - (startTime ?? currentTime)
 
-  const countDown = Math.max(0, 60000 - passedFromStart)
+  const countDown = Math.max(0, settedTime - passedFromStart)
   const totalSeconds = Math.ceil(countDown / 1000)
   const minutes = Math.floor(totalSeconds / 60)
   const seconds = totalSeconds % 60

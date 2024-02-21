@@ -13,7 +13,8 @@ const initialState = {
   types: {
     boolean: 0,
     multiple: 0
-  }
+  },
+  time: 0
 }
 
 const statSlice = createSlice({
@@ -38,6 +39,9 @@ const statSlice = createSlice({
     setChoosenType(state, action) {
       state.types[action.payload] += 1
     },
+    setSpendedTime(state, action) {
+      state.time += action.payload
+    },
     clearMyStat() {
       return initialState
     }
@@ -50,25 +54,7 @@ export const {
   setChoosenCategory,
   setChoosenDiff,
   setChoosenType,
+  setSpendedTime,
   clearMyStat
 } = statSlice.actions
 export const statReducer = statSlice.reducer
-
-// {
-//   "totalQuestions": 100,
-//   "correctAnswers": 1,
-//   "categories": {
-//     "General Knowledge": 70,
-//     "History": 30,
-
-//   },
-//   "difficulty": {
-//     "Easy": 20,
-//     "Medium": 50,
-//     "Hard": 30
-//   },
-//   "types": {
-//     "Boolean": 51,
-//     "Multiple": 49
-//   }
-// }
