@@ -11,7 +11,8 @@ import {
   setCorrectQuestionQty,
   setChoosenCategory,
   setChoosenDiff,
-  setChoosenType
+  setChoosenType,
+  setSpendedTime
 } from '../../redux/reducers/statReducer'
 import { Timer } from '../../components/Timer/Timer'
 
@@ -21,7 +22,7 @@ export function QuizScreen() {
   const [correctAnswersValue, setCorrectAnswersValue] = useState(0)
   const [gameIsDone, setGameIsDone] = useState(false)
   const gameSettings = useSelector((state) => state.settings)
-  let { questionQty, categoryId, difficulty, type } = gameSettings
+  let { questionQty, categoryId, difficulty, type, time } = gameSettings
   const { data, isFetching } = useGetQuestionsQuery({
     questionQty,
     categoryId,
@@ -41,6 +42,8 @@ export function QuizScreen() {
       })
     }
   }, [gameIsDone, navigate])
+
+  let settedTimeValueInMs = time.slice(0, 1)*60000
 
   let currentQuestionData;
 
@@ -93,6 +96,7 @@ export function QuizScreen() {
 
   function handleTimeRemaining() {
     setGameIsDone(true)
+    dispatch(setSpendedTime(settedTimeValueInMs))
     navigate('/result', {
       state: { correctAnswersValue: correctAnswersValue, category: currentQuestionData.category }
     })
@@ -107,6 +111,7 @@ export function QuizScreen() {
           <Timer 
           handleTimeRemaining={handleTimeRemaining}
           start={startTimer}
+          settedTime={settedTimeValueInMs}
           />
         </div>
         <Question
