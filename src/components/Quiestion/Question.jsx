@@ -11,24 +11,24 @@ export function Question({
 }) {
   const [selectedAnswer, setSelectedAnswer] = useState(null)
   const [isAnswered, setIsAnswered] = useState(false)
+  const [shuffledArray, setShuffledArray] = useState([])
 
   const rightAnswer = currentQuestionData.correct_answer
   const wrongAnswers = currentQuestionData.incorrect_answers
   const answersForOneQuestion = [...wrongAnswers, rightAnswer]
 
+  useEffect(() => {
+    setShuffledArray(getSuffledArray(answersForOneQuestion))
+  }, [currentQuestionData])
+
   function getSuffledArray(array) {
-        const arrayCopy = [...array]
+    const arrayCopy = [...array]
     for (let i = arrayCopy.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
       ;[arrayCopy[i], arrayCopy[j]] = [arrayCopy[j], arrayCopy[i]]
     }
     return arrayCopy
   }
-
-  let shuffledArray;
-  useEffect(() => {
-    shuffledArray = getSuffledArray(answersForOneQuestion)
-  }, [])
 
   useEffect(() => {
     if (isAnswered) {
@@ -54,9 +54,6 @@ export function Question({
     if (answer === selectedAnswer) return `${s.answer_item} ${s.incorrect}`
     return s.answer_item
   }
-  const totalQuestionsAmount = useSelector((state) => {
-    return state.stat
-  })
 
   return (
     <>
