@@ -5,15 +5,12 @@ import { Link, useLocation } from 'react-router-dom'
 
 export function ResultScreen() {
   const gameSettings = useSelector((state) => state.settings)
-  const gameTimeState = useSelector((state) => state.time.game)
-  const stat = useSelector((state) => state.stat)
+  const spentTime = useSelector((state) => state.time.currentGameTime)
 
   let { categoryId, questionQty, difficulty, type} = gameSettings
 
   const location = useLocation()
   const correctAnswersValue = location.state.correctAnswersValue
-  const spentTime = gameTimeState[1] - gameTimeState[0]
-
 
   let spentTimeinSec = (spentTime / 1000).toFixed(0);
   const minutes = Math.floor(spentTimeinSec / 60)

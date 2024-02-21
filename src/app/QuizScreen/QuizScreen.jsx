@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Question } from '../../components/Quiestion/Question'
 import s from './QuizScreen.module.css'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
@@ -14,16 +14,16 @@ import {
   setChoosenType,
   setSpendedTime
 } from '../../redux/reducers/statReducer'
-import { setGameTime } from '../../redux/reducers/timeHandlerReducer'
+import { setLastGameTime } from '../../redux/reducers/currentGameTimeReducer'
 import { Timer } from '../../components/Timer/Timer'
 
 export function QuizScreen() {
   const navigate = useNavigate()
+  const ref = useRef(new Date().getTime());
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0)
   const [correctAnswersValue, setCorrectAnswersValue] = useState(0)
   const [gameIsDone, setGameIsDone] = useState(false)
   const gameSettings = useSelector((state) => state.settings)
-  const gameTimeState = useSelector((state) => state.time.game)
 
   let { questionQty, categoryId, difficulty, type, time } = gameSettings
   const { data, isFetching } = useGetQuestionsQuery({
@@ -36,8 +36,6 @@ export function QuizScreen() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const now = new Date().getTime()
-    dispatch(setGameTime({ index: 0, value: now }))
     setStartTimer(true)
   }, [])
 
@@ -89,9 +87,9 @@ export function QuizScreen() {
     if (currentQuestionNumber + 1 < questionQty) {
       setCurrentQuestionNumber((v) => v + 1)
     } else {
-      const now2 = new Date().getTime()
-      dispatch(setGameTime({ index: 1, value: now2 }))
-      let difference = gameTimeState[1] - gameTimeState[0]
+      let now = new Date().getTime();
+      let difference =  now - ref.current;
+      dispatch(setLastGameTime(difference))
       dispatch(setSpendedTime(difference))
       setGameIsDone(true)
     }
@@ -107,8 +105,7 @@ export function QuizScreen() {
   }
 
   function handleTimeExpiring() {
-    const now2 = new Date().getTime()
-    dispatch(setGameTime({ index: 1, value: now2 }))
+    dispatch(setLastGameTime(time))
     dispatch(setSpendedTime(time))
     setGameIsDone(true)
     navigate('/result', {
