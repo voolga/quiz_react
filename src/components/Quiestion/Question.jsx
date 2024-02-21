@@ -1,6 +1,8 @@
 import s from './Question.module.css'
 import { Circles } from '../Circles/Circles'
 import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+
 
 export function Question({
   currentQuestionData,
@@ -51,7 +53,11 @@ export function Question({
     if (answer === selectedAnswer) return `${s.answer_item} ${s.incorrect}`
     return s.answer_item
   }
+  const totalQuestionsAmount = useSelector((state) => {
+    return state.stat
+  })
 
+  console.log(totalQuestionsAmount);
   return (
     <>
       <div className={s.question_wrapper}>

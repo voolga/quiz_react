@@ -2,9 +2,17 @@ import { useState, useEffect } from 'react'
 import { Question } from '../../components/Quiestion/Question'
 import s from './QuizScreen.module.css'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { decode } from 'html-entities'
 import { useGetQuestionsQuery } from '../../redux/reducers/questionsQuiz'
 import { Loader } from '../../components/Loader/Loader'
+import {
+  setTotalQuestionQty,
+  setCorrectQuestionQty,
+  setChoosenCategory,
+  setChoosenDiff,
+  setChoosenType
+} from '../../redux/reducers/statReducer'
 
 export function QuizScreen() {
   const navigate = useNavigate()
@@ -20,17 +28,45 @@ export function QuizScreen() {
     type
   })
 
-  const currentQuestionData = data?.results[currentQuestionNumber]
-  
   useEffect(() => {
     if (gameIsDone) {
-      navigate('/result', { state: { correctAnswersValue: correctAnswersValue } });
+      navigate('/result', {
+        state: { correctAnswersValue: correctAnswersValue, category: currentQuestionData.category }
+      })
     }
   }, [gameIsDone, navigate])
+
+  let currentQuestionData;
+
+  if (data?.results) {
+    const decodedAllQuestions = decodeQuestions(data.results);
+    currentQuestionData = decodedAllQuestions[currentQuestionNumber];
+  }
+
+  function decodeQuestions(questions) {
+    return questions.map((question) => {
+      const decodedQuestion = decode(question.question)
+      const decodedCorrectAnswer = decode(question.correct_answer)
+
+      const decodedIncorrectAnswers = question.incorrect_answers
+        ? question.incorrect_answers.map((answer) => decode(answer))
+        : []
+
+      return {
+        ...question,
+        question: decodedQuestion,
+        correct_answer: decodedCorrectAnswer,
+        incorrect_answers: decodedIncorrectAnswers
+      }
+    })
+  }
+
+  const dispatch = useDispatch()
 
   function getNextQuestion(selectedAnswer) {
     if (selectedAnswer === currentQuestionData.correct_answer) {
       setCorrectAnswersValue((v) => v + 1)
+      dispatch(setCorrectQuestionQty())
     }
 
     if (currentQuestionNumber + 1 < questionQty) {
@@ -38,6 +74,15 @@ export function QuizScreen() {
     } else {
       setGameIsDone(true)
     }
+
+    addDataToStat()
+  }
+
+  function addDataToStat() {
+    dispatch(setChoosenCategory(currentQuestionData.category))
+    dispatch(setTotalQuestionQty())
+    dispatch(setChoosenDiff(difficulty))
+    dispatch(setChoosenType(type))
   }
 
   if (isFetching) return <Loader />
@@ -60,18 +105,3 @@ export function QuizScreen() {
     </>
   )
 }
-
-//   "response_code": 0,
-//   "results": [
-//       {
-//           "type": "multiple",
-//           "difficulty": "easy",
-//           "category": "General Knowledge",
-//           "question": "Which sign of the zodiac comes between Virgo and Scorpio?",
-//           "correct_answer": "Libra",
-//           "incorrect_answers": [
-//               "Gemini",
-//               "Taurus",
-//               "Capricorn"
-//           ]
-//       },

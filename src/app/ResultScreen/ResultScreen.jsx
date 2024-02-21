@@ -5,11 +5,12 @@ import { Link, useLocation } from 'react-router-dom'
 
 export function ResultScreen() {
   const gameSettings = useSelector((state) => state.settings)
-  let { questionQty, categoryId, difficulty, type, time } = gameSettings
+  let { questionQty, difficulty, type, time } = gameSettings
   let settedTimeValue = time.slice(0, 1)
 
   const location = useLocation();
   const correctAnswersValue = location.state.correctAnswersValue;
+  const category = location.state.category;
 
   return (
     <>
@@ -25,7 +26,7 @@ export function ResultScreen() {
           </div>
 
           <div className={s.result_config_area}>
-            <div className={s.result_config_item}>Category: {categoryId}</div>
+            <div className={s.result_config_item}>Category: {category}</div>
             <div className={s.result_config_item}>Difficulty: {difficulty}</div>
             <div className={s.result_config_item}>Type: {type}</div>
             <div className={s.result_config_item}>Time: {time}</div>
