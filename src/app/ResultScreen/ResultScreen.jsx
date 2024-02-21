@@ -13,8 +13,6 @@ export function ResultScreen() {
   const location = useLocation()
   const correctAnswersValue = location.state.correctAnswersValue
   const spentTime = gameTimeState[1] - gameTimeState[0]
-  console.log(gameTimeState);
-  console.log(stat);
 
 
   let spentTimeinSec = (spentTime / 1000).toFixed(0);
