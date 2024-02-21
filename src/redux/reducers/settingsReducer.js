@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  categoryId: '9',
-  difficulty: 'easy',
-  type: 'boolean',
+  categoryId: '',
+  difficulty: '',
+  type: '',
   time: '1m',
   questionQty: '5'
 }
@@ -26,10 +26,13 @@ const settingsSclice = createSlice({
     },
     setNumberOfQuestion(state, action) {
       state.questionQty = action.payload
+    },
+    clearSettings(state) {
+      Object.assign(state, initialState)
     }
   }
 })
 
-export const { setCategory, setDifficulty, setType, setTime, setNumberOfQuestion } =
+export const { setCategory, setDifficulty, setType, setTime, setNumberOfQuestion, clearSettings } =
   settingsSclice.actions
 export const settingsReducer = settingsSclice.reducer

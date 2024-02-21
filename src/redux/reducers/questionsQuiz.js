@@ -6,13 +6,21 @@ export const questionQuiz = createApi({
   endpoints: (build) => ({
     getQuestions: build.query({
       query: ({ questionQty, categoryId, difficulty, type }) => {
-        if (questionQty && categoryId && difficulty && type) {
-          return `?amount=${questionQty}&category=${categoryId}&difficulty=${difficulty}&type=${type}`
-        } else {
-          console.log('Не все данные были переданы верно для формирования запроса на получение списка вопросов')
+        let totalUrl = `?amount=${questionQty}`
+
+        if (categoryId) {
+          totalUrl += `&category=${categoryId}`
         }
+        if (difficulty) {
+          totalUrl += `&difficulty=${difficulty}`
+        }
+        if (type) {
+          totalUrl += `&type=${type}`
+        }
+
+        return totalUrl
       },
-      keepUnusedDataFor: 0,
+      keepUnusedDataFor: 0
     })
   })
 })

@@ -11,7 +11,7 @@ import {
   setDifficulty,
   setType,
   setTime,
-  setNumberOfQuestion
+  setNumberOfQuestion,
 } from '../../redux/reducers/settingsReducer'
 import { useEffect } from 'react'
 import { fetchCategories } from '../../redux/reducers/categoriesReducer'

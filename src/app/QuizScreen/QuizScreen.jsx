@@ -14,6 +14,7 @@ import {
   setChoosenType,
   setSpendedTime
 } from '../../redux/reducers/statReducer'
+import { clearSettings } from '../../redux/reducers/settingsReducer'
 import { Timer } from '../../components/Timer/Timer'
 
 export function QuizScreen() {
@@ -29,27 +30,29 @@ export function QuizScreen() {
     difficulty,
     type
   })
-  const [startTimer, setStartTimer] = useState(false);
+  const [startTimer, setStartTimer] = useState(false)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    setStartTimer(true);
-  }, []);
+    setStartTimer(true)
+  }, [])
 
   useEffect(() => {
     if (gameIsDone) {
+      dispatch(clearSettings())
       navigate('/result', {
         state: { correctAnswersValue: correctAnswersValue, category: currentQuestionData.category }
       })
     }
   }, [gameIsDone, navigate])
 
-  let settedTimeValueInMs = time.slice(0, 1)*60000
+  let settedTimeValueInMs = time.slice(0, 1) * 60000
 
-  let currentQuestionData;
+  let currentQuestionData
 
   if (data?.results) {
-    const decodedAllQuestions = decodeQuestions(data.results);
-    currentQuestionData = decodedAllQuestions[currentQuestionNumber];
+    const decodedAllQuestions = decodeQuestions(data.results)
+    currentQuestionData = decodedAllQuestions[currentQuestionNumber]
   }
 
   function decodeQuestions(questions) {
@@ -70,8 +73,6 @@ export function QuizScreen() {
     })
   }
 
-  const dispatch = useDispatch()
-
   function getNextQuestion(selectedAnswer) {
     if (selectedAnswer === currentQuestionData.correct_answer) {
       setCorrectAnswersValue((v) => v + 1)
@@ -83,15 +84,15 @@ export function QuizScreen() {
     } else {
       setGameIsDone(true)
     }
-    
+
     addDataToStat()
   }
 
   function addDataToStat() {
     dispatch(setChoosenCategory(currentQuestionData.category))
     dispatch(setTotalQuestionQty())
-    dispatch(setChoosenDiff(difficulty))
-    dispatch(setChoosenType(type))
+    dispatch(setChoosenDiff(currentQuestionData.difficulty))
+    dispatch(setChoosenType(currentQuestionData.type))
   }
 
   function handleTimeRemaining() {
@@ -108,10 +109,10 @@ export function QuizScreen() {
     <>
       <div className={s.container}>
         <div className={s.timer}>
-          <Timer 
-          handleTimeRemaining={handleTimeRemaining}
-          start={startTimer}
-          settedTime={settedTimeValueInMs}
+          <Timer
+            handleTimeRemaining={handleTimeRemaining}
+            start={startTimer}
+            settedTime={settedTimeValueInMs}
           />
         </div>
         <Question
