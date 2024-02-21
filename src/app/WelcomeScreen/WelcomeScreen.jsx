@@ -12,6 +12,7 @@ import {
   setType,
   setTime,
   setNumberOfQuestion,
+  clearSettings
 } from '../../redux/reducers/settingsReducer'
 import { useEffect } from 'react'
 import { fetchCategories } from '../../redux/reducers/categoriesReducer'
@@ -66,6 +67,7 @@ export const WelcomeScreen = () => {
   })
 
   useEffect(() => {
+    dispatch(clearSettings())
     dispatch(fetchCategories())
   }, [])
 

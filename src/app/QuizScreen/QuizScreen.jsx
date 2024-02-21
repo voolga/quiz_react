@@ -14,7 +14,6 @@ import {
   setChoosenType,
   setSpendedTime
 } from '../../redux/reducers/statReducer'
-import { clearSettings } from '../../redux/reducers/settingsReducer'
 import { Timer } from '../../components/Timer/Timer'
 
 export function QuizScreen() {
@@ -39,7 +38,6 @@ export function QuizScreen() {
 
   useEffect(() => {
     if (gameIsDone) {
-      dispatch(clearSettings())
       navigate('/result', {
         state: { correctAnswersValue: correctAnswersValue, category: currentQuestionData.category }
       })
