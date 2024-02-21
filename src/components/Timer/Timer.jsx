@@ -23,7 +23,7 @@ function useCurrentTime(updateInterval, enabling, callback) {
   return now
 }
 
-export function Timer({ handleTimeRemaining, start, settedTime }) {
+export function Timer({ handleTimeExpiring, start, settedTime }) {
   const [startTime, setStartTime] = useState()
 
   const currentTime = useCurrentTime(1000, startTime)
@@ -58,7 +58,7 @@ export function Timer({ handleTimeRemaining, start, settedTime }) {
 
   useEffect(() => {
     if (isTimerEnd) {
-      handleTimeRemaining()
+      handleTimeExpiring()
     }
   }, [isTimerEnd])
 

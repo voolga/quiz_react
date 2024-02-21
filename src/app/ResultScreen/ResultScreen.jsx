@@ -2,18 +2,34 @@ import s from './ResultScreen.module.css'
 import { Circles } from '../../components/Circles/Circles'
 import { useSelector } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
+import { setSpendedTime } from '../../redux/reducers/statReducer'
+import { useDispatch } from 'react-redux'
 
 export function ResultScreen() {
+  const dispatch = useDispatch()
   const gameSettings = useSelector((state) => state.settings)
-  let { categoryId, questionQty, difficulty, type, time } = gameSettings
-  let settedTimeValue = time.slice(0, 1)
+  const gameTimeState = useSelector((state) => state.time.game)
+  const stat = useSelector((state) => state.stat)
+
+  let { categoryId, questionQty, difficulty, type} = gameSettings
 
   const location = useLocation()
   const correctAnswersValue = location.state.correctAnswersValue
+  const spentTime = gameTimeState[gameTimeState.length - 1] - gameTimeState[0]
+  console.log(gameTimeState);
+  console.log(stat);
+  
 
-  const category = categoryId ? location.state.category : 'Random';
-  difficulty = difficulty || 'Random';
-  type = type || 'Random';
+  let spentTimeinSec = (spentTime / 1000).toFixed(0);
+  const minutes = Math.floor(spentTimeinSec / 60)
+  const seconds = spentTimeinSec % 60
+
+  const formattedMinutes = minutes.toString().padStart(2, '0')
+  const formattedSeconds = seconds.toString().padStart(2, '0')
+
+  const category = categoryId ? location.state.category : 'Random'
+  difficulty = difficulty || 'Random'
+  type = type || 'Random'
 
   return (
     <>
@@ -22,10 +38,9 @@ export function ResultScreen() {
         <div className={s.result_wrapper}>
           <div className={s.result_text_area}>
             <Circles />
-            <h2 className={s.question_header}>Thanks for completing this quiz. Your results:</h2>
+            <h2 className={s.question_header}>Good job! Your results:</h2>
             <p>
-              You answered correctly on {correctAnswersValue} from {questionQty} questions in{' '}
-              {settedTimeValue} minutes.
+              You answered correctly on {correctAnswersValue} from {questionQty} questions.
             </p>
           </div>
 
@@ -33,7 +48,9 @@ export function ResultScreen() {
             <div className={s.result_config_item}>Category: {category}</div>
             <div className={s.result_config_item}>Difficulty: {difficulty}</div>
             <div className={s.result_config_item}>Type: {type}</div>
-            <div className={s.result_config_item}>Time: {time}</div>
+            <div className={s.result_config_item}>
+              Time: {formattedMinutes}м {formattedSeconds}с
+            </div>
           </div>
         </div>
         <div className={s.btns_wrapper}>

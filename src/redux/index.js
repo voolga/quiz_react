@@ -14,6 +14,7 @@ import {
   PURGE,
   REGISTER
 } from 'redux-persist'
+import { timeHandlerReducer } from './reducers/timeHandlerReducer'
 
 const statPersistConfig = {
   key: 'stat',
@@ -26,6 +27,7 @@ const reducers = {
   settings: settingsReducer,
   categories: categoriesReducer,
   stat: persistedStatReducer,
+  time: timeHandlerReducer,
   [questionQuiz.reducerPath]: questionQuiz.reducer
 }
 

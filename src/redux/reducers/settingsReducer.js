@@ -4,8 +4,8 @@ const initialState = {
   categoryId: '',
   difficulty: '',
   type: '',
-  time: '1m',
-  questionQty: '5'
+  time: 60000,
+  questionQty: 5
 }
 
 const settingsSclice = createSlice({

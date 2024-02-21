@@ -43,7 +43,9 @@ export const WelcomeScreen = () => {
   }
 
   function setTimeValue(newTime) {
-    dispatch(setTime(newTime))
+    let settedTimeInMin = newTime.slice(0, 1)
+    let settedTimeInMs = settedTimeInMin * 60000
+    dispatch(setTime(settedTimeInMs))
   }
 
   const qtySelectValue = useSelector((state) => {

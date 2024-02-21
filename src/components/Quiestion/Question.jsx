@@ -54,7 +54,10 @@ export function Question({
     if (answer === selectedAnswer) return `${s.answer_item} ${s.incorrect}`
     return s.answer_item
   }
-
+  const totalQuestionsAmount = useSelector((state) => {
+    return state.stat
+  })
+// console.log(totalQuestionsAmount);
   return (
     <>
       <div className={s.question_wrapper}>

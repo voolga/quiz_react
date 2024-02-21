@@ -14,6 +14,9 @@ import {
   setChoosenType,
   setSpendedTime
 } from '../../redux/reducers/statReducer'
+import {
+  setGameTime
+} from '../../redux/reducers/timeHandlerReducer'
 import { Timer } from '../../components/Timer/Timer'
 
 export function QuizScreen() {
@@ -22,6 +25,8 @@ export function QuizScreen() {
   const [correctAnswersValue, setCorrectAnswersValue] = useState(0)
   const [gameIsDone, setGameIsDone] = useState(false)
   const gameSettings = useSelector((state) => state.settings)
+  const gameTimeState = useSelector((state) => state.time.game)
+
   let { questionQty, categoryId, difficulty, type, time } = gameSettings
   const { data, isFetching } = useGetQuestionsQuery({
     questionQty,
@@ -33,18 +38,21 @@ export function QuizScreen() {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    const now = new Date().getTime()
+    dispatch(setGameTime({index: 0, value: now}))
     setStartTimer(true)
   }, [])
 
   useEffect(() => {
     if (gameIsDone) {
       navigate('/result', {
-        state: { correctAnswersValue: correctAnswersValue, category: currentQuestionData.category }
+        state: {
+          correctAnswersValue: correctAnswersValue,
+          category: currentQuestionData.category,
+        }
       })
     }
   }, [gameIsDone, navigate])
-
-  let settedTimeValueInMs = time.slice(0, 1) * 60000
 
   let currentQuestionData
 
@@ -78,8 +86,13 @@ export function QuizScreen() {
     }
 
     if (currentQuestionNumber + 1 < questionQty) {
+      const now2 = new Date().getTime()
+      dispatch(setGameTime({index: 1, value: now2}))
       setCurrentQuestionNumber((v) => v + 1)
     } else {
+      const now2 = new Date().getTime()
+      dispatch(setGameTime({index: 1, value: now2}))
+      dispatch(setSpendedTime(gameTimeState[1] - gameTimeState[0]))
       setGameIsDone(true)
     }
 
@@ -93,9 +106,8 @@ export function QuizScreen() {
     dispatch(setChoosenType(currentQuestionData.type))
   }
 
-  function handleTimeRemaining() {
+  function handleTimeExpiring() {
     setGameIsDone(true)
-    dispatch(setSpendedTime(settedTimeValueInMs))
     navigate('/result', {
       state: { correctAnswersValue: correctAnswersValue, category: currentQuestionData.category }
     })
@@ -107,11 +119,7 @@ export function QuizScreen() {
     <>
       <div className={s.container}>
         <div className={s.timer}>
-          <Timer
-            handleTimeRemaining={handleTimeRemaining}
-            start={startTimer}
-            settedTime={settedTimeValueInMs}
-          />
+          <Timer handleTimeExpiring={handleTimeExpiring} start={startTimer} settedTime={time} />
         </div>
         <Question
           currentQuestionNumber={currentQuestionNumber}
