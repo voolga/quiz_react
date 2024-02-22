@@ -1,37 +1,40 @@
 import s from './Question.module.css'
 import { Circles } from '../Circles/Circles'
 import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 export function Question({
   currentQuestionData,
   questionQty,
   currentQuestionNumber,
-  getNextQuestion
+  handleAnswer
 }) {
   const [selectedAnswer, setSelectedAnswer] = useState(null)
   const [isAnswered, setIsAnswered] = useState(false)
+  const [shuffledArray, setShuffledArray] = useState([])
 
   const rightAnswer = currentQuestionData.correct_answer
   const wrongAnswers = currentQuestionData.incorrect_answers
   const answersForOneQuestion = [...wrongAnswers, rightAnswer]
 
-  function getSuffledArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
-      ;[array[i], array[j]] = [array[j], array[i]]
-    }
-    return array
-  }
-
   useEffect(() => {
-    getSuffledArray(answersForOneQuestion)
-  }, [])
+    setShuffledArray(getSuffledArray(answersForOneQuestion))
+  }, [currentQuestionData])
+
+  function getSuffledArray(array) {
+    const arrayCopy = [...array]
+    for (let i = arrayCopy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[arrayCopy[i], arrayCopy[j]] = [arrayCopy[j], arrayCopy[i]]
+    }
+    return arrayCopy
+  }
 
   useEffect(() => {
     if (isAnswered) {
       const timeOfShowingAnswer = setTimeout(() => {
         setIsAnswered(false)
-        getNextQuestion(selectedAnswer)
+        handleAnswer(selectedAnswer)
       }, 1200)
 
       return () => clearTimeout(timeOfShowingAnswer)
@@ -51,7 +54,7 @@ export function Question({
     if (answer === selectedAnswer) return `${s.answer_item} ${s.incorrect}`
     return s.answer_item
   }
-
+  
   return (
     <>
       <div className={s.question_wrapper}>
@@ -66,7 +69,7 @@ export function Question({
         <div
           className={s.answer_area}
           style={isAnswered ? { pointerEvents: 'none', cursor: 'not-allowed' } : null}>
-          {answersForOneQuestion.map((answer, i) => {
+          {shuffledArray.map((answer, i) => {
             return (
               <div className={getAnswerClass(answer)} key={i} onClick={() => handleClick(answer)}>
                 {answer}
@@ -78,4 +81,3 @@ export function Question({
     </>
   )
 }
-

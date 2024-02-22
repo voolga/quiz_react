@@ -5,11 +5,23 @@ import { Link, useLocation } from 'react-router-dom'
 
 export function ResultScreen() {
   const gameSettings = useSelector((state) => state.settings)
-  let { questionQty, categoryId, difficulty, type, time } = gameSettings
-  let settedTimeValue = time.slice(0, 1)
+  const spentTime = useSelector((state) => state.time.currentGameTime)
 
-  const location = useLocation();
-  const correctAnswersValue = location.state.correctAnswersValue;
+  let { categoryId, questionQty, difficulty, type} = gameSettings
+
+  const location = useLocation()
+  const correctAnswersValue = location.state.correctAnswersValue
+
+  let spentTimeinSec = (spentTime / 1000).toFixed(0);
+  const minutes = Math.floor(spentTimeinSec / 60)
+  const seconds = spentTimeinSec % 60
+
+  const formattedMinutes = minutes.toString().padStart(2, '0')
+  const formattedSeconds = seconds.toString().padStart(2, '0')
+
+  const category = categoryId ? location.state.category : 'Random'
+  difficulty = difficulty || 'Random'
+  type = type || 'Random'
 
   return (
     <>
@@ -18,26 +30,28 @@ export function ResultScreen() {
         <div className={s.result_wrapper}>
           <div className={s.result_text_area}>
             <Circles />
-            <h2 className={s.question_header}>Thanks for completing this quiz. Your results:</h2>
+            <h2 className={s.question_header}>Good job! Your results:</h2>
             <p>
-              You answered correctly on {correctAnswersValue} from {questionQty} questions in {settedTimeValue} minutes.
+              You answered correctly on {correctAnswersValue} from {questionQty} questions.
             </p>
           </div>
 
           <div className={s.result_config_area}>
-            <div className={s.result_config_item}>Category: {categoryId}</div>
+            <div className={s.result_config_item}>Category: {category}</div>
             <div className={s.result_config_item}>Difficulty: {difficulty}</div>
             <div className={s.result_config_item}>Type: {type}</div>
-            <div className={s.result_config_item}>Time: {time}</div>
+            <div className={s.result_config_item}>
+              Time: {formattedMinutes}м {formattedSeconds}с
+            </div>
           </div>
         </div>
         <div className={s.btns_wrapper}>
           <Link to={'/quiz'} className={s.btn}>
-              Restart
-            </Link>
-            <Link to={'/'} className={s.btn}>
-              Start new game
-            </Link>
+            Restart
+          </Link>
+          <Link to={'/'} className={s.btn}>
+            Start new game
+          </Link>
         </div>
       </div>
     </>

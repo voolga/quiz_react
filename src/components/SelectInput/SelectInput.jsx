@@ -1,5 +1,5 @@
 export const SelectInput = ({ text, id, options, style, setSelectValue }) => {
-  let optionItems;
+  let optionItems
   if (text === 'Choose сategory:') {
     optionItems = options
       ? options.map((item) => (
@@ -23,6 +23,7 @@ export const SelectInput = ({ text, id, options, style, setSelectValue }) => {
       <div className="input_item" style={style}>
         <label htmlFor={id}>{text}</label>
         <select id={id} onChange={(e) => setSelectValue(e.target.value)}>
+          {id === 'time' ? null : <option value="">Random</option>}
           {optionItems}
         </select>
       </div>

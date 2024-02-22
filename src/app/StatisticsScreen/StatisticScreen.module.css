@@ -1,4 +1,69 @@
 .container {
-    display: flex;
-    font-size: 1rem;
-  }
+  font-size: 1rem;
+}
+
+.stat_wrapper {
+  font-family: 'Press Start 2P', system-ui;
+  font-weight: 400;
+  line-height: 1.2;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.stat_header {
+  font-family: 'Press Start 2P', system-ui;
+  font-size: 4rem;
+}
+
+.stat_area {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 10px;
+}
+
+.stat_item {
+  background-color: var(--blue);
+  border-radius: 100px;
+  padding: 15px 25px;
+}
+
+.stat_item_header {
+  font-size: 2.5rem;
+  font-family: 'Honk', system-ui;
+  margin: 0;
+}
+
+.btns_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.btn {
+  font-size: 1rem;
+  font-family: 'Press Start 2P', system-ui;
+  color: #ffd800;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50px;
+  padding: 1em 2em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.btn.reset_btn {
+  margin-top: 32px;
+  position: absolute;
+  top: 0;
+  right: 32px;
+}
+
+.btn:hover,
+.reset_btn:hover {
+  transform: scale(1.15);
+}
