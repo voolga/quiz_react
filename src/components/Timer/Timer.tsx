@@ -31,6 +31,7 @@ interface TimerInterface {
   start: boolean,
   settedTime: number
 }
+
 export function Timer({ handleTimeExpiring, start, settedTime }: TimerInterface) {
   const [startTime, setStartTime] = useState<null | number>(null)
 

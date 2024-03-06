@@ -17,7 +17,7 @@ import { RootState } from '../../redux/index'
 import { QuestionInterface } from '../../redux/reducers/questionsQuiz'
 
 
-export function QuizScreen() {
+export const QuizScreen: React.FC = () =>  {
   const navigate = useNavigate()
   const ref = useRef<number>(new Date().getTime())
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState<number>(0)

@@ -20,7 +20,7 @@ import inputs from '../../components/inputsData'
 import { AppDispatch, RootState } from '../../redux/index'
 
 
-export const WelcomeScreen = () => {
+export const WelcomeScreen: React.FC = () => {
   const navigation = useNavigate()
   const handlerFn = (to: string) => {
     navigation(to)
@@ -58,7 +58,7 @@ export const WelcomeScreen = () => {
   const categoriesList = useSelector((state: RootState) => state.categories.categories)
 
   return (
-    <>
+    <> 
       <div className={s.container}>
         <div className={s.header_wrapper}>
           <Circles />
