@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, combineReducers  } from '@reduxjs/toolkit'
 import { settingsReducer } from './reducers/settingsReducer'
 import { categoriesReducer } from './reducers/categoriesReducer'
 import { questionQuiz } from './reducers/questionsQuiz'
@@ -23,16 +23,16 @@ const statPersistConfig = {
 
 const persistedStatReducer = persistReducer(statPersistConfig, statReducer)
 
-const reducers = {
+const rootReducer = combineReducers({
   settings: settingsReducer,
   categories: categoriesReducer,
   stat: persistedStatReducer,
   time: currentGameTimeReducer,
   [questionQuiz.reducerPath]: questionQuiz.reducer
-}
+});
 
 export const store = configureStore({
-  reducer: reducers,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -40,5 +40,9 @@ export const store = configureStore({
       }
     }).concat(questionQuiz.middleware)
 })
+
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 export let persistor = persistStore(store)

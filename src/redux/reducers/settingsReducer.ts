@@ -1,6 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-const initialState = {
+export interface SettingsState {
+  categoryId: string
+  difficulty: string
+  type: string
+  time: number
+  questionQty: number
+}
+
+const initialState: SettingsState = {
   categoryId: '',
   difficulty: '',
   type: '',
@@ -12,19 +20,21 @@ const settingsSclice = createSlice({
   name: 'settings',
   initialState,
   reducers: {
-    setCategory(state, action) {
+    setCategory(state, action: PayloadAction<string>) {
+      console.log('settingsReducer');
+
       state.categoryId = action.payload
     },
-    setDifficulty(state, action) {
+    setDifficulty(state, action: PayloadAction<string>) {
       state.difficulty = action.payload
     },
-    setType(state, action) {
+    setType(state, action: PayloadAction<string>) {
       state.type = action.payload
     },
-    setTime(state, action) {
+    setTime(state, action: PayloadAction<number>) {
       state.time = action.payload
     },
-    setNumberOfQuestion(state, action) {
+    setNumberOfQuestion(state, action: PayloadAction<number>) {
       state.questionQty = action.payload
     },
     clearSettings(state) {

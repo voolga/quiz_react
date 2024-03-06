@@ -1,23 +1,35 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-export const fetchCategories = createAsyncThunk('categories/fetchCategories', async function () {
-    const response = await fetch('https://opentdb.com/api_category.php')
+interface Data {
+  trivia_categories: Category[]
+}
 
-  const data = await response.json()
-  return data
+interface Category {
+  id: number;
+  name: string;
+}
+
+interface CategoriesState {
+  categories: Category[];
+  status: 'idle' | 'loading' | 'loaded' | 'failed';
+  error: string | null | undefined;
+}
+
+export const fetchCategories = createAsyncThunk<Category[]>('categories/fetchCategories', async function () {
+  const response = await fetch('https://opentdb.com/api_category.php')
+  const data: Data  = await response.json()
+  return data.trivia_categories
 })
 
 const categoriesSlice = createSlice({
   name: 'categories',
   initialState: {
     categories: [],
-    status: null,
+    status: 'idle',
     error: null
-  },
+  } as CategoriesState,
   reducers: {
-    setCategory(state, action) {
-      state.category = action.payload
-    }
+
   },
   extraReducers: (builder) => {
     builder
@@ -36,5 +48,4 @@ const categoriesSlice = createSlice({
   }
 })
 
-export const { setCategory } = categoriesSlice.actions
 export const categoriesReducer = categoriesSlice.reducer

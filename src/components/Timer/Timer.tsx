@@ -1,7 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import s from './Timer.module.css'
 
-function useCurrentTime(updateInterval, enabling, callback) {
+function useCurrentTime(
+  updateInterval: number,
+  enabling: number | null,
+  callback?: (param: number) => void
+) {
   const callBackRef = useRef(callback)
   callBackRef.current = callback
 
@@ -14,7 +18,7 @@ function useCurrentTime(updateInterval, enabling, callback) {
       setNow(Date.now())
       callBackRef.current?.(Date.now())
     }, updateInterval)
-
+ 
     return () => {
       clearInterval(interval)
     }
@@ -22,9 +26,13 @@ function useCurrentTime(updateInterval, enabling, callback) {
 
   return now
 }
-
-export function Timer({ handleTimeExpiring, start, settedTime }) {
-  const [startTime, setStartTime] = useState()
+interface TimerInterface {
+  handleTimeExpiring: () => void,
+  start: boolean,
+  settedTime: number
+}
+export function Timer({ handleTimeExpiring, start, settedTime }: TimerInterface) {
+  const [startTime, setStartTime] = useState<null | number>(null)
 
   const currentTime = useCurrentTime(1000, startTime)
 
@@ -48,7 +56,7 @@ export function Timer({ handleTimeExpiring, start, settedTime }) {
 
   const startTimer = () => {
     if (startTime) {
-      setStartTime()
+      setStartTime(null)
     } else {
       setStartTime(Date.now())
     }

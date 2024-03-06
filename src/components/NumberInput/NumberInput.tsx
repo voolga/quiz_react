@@ -1,4 +1,13 @@
-export const NumberInput = ({style, setQuestionQty}) => {
+interface NumberInputsInterface {
+  style: StyleObject
+  setQuestionQty: (param: number) => void
+}
+
+interface StyleObject {
+  [key: string]: string
+}
+
+export const NumberInput = ({style, setQuestionQty}:NumberInputsInterface) => {
   return (
     <>
       <div className="input_item" style={style}>
@@ -10,7 +19,7 @@ export const NumberInput = ({style, setQuestionQty}) => {
           // min="5"
           // max="15"
           placeholder="Input number of questions"
-          onChange={e => setQuestionQty(e.target.value)}
+          onChange={e => setQuestionQty(+e.target.value)}
           >
           </input>
       </div>

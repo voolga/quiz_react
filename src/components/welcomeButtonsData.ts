@@ -1,4 +1,17 @@
-const welcomeBtns = {
+
+
+interface WelcomeButtons {
+    text: string
+    buttonType: "submit" | "button" | "reset" | undefined,
+    formaction: string,
+    to: string,
+}
+
+interface NestedInterface {
+    [key: string]: WelcomeButtons;
+}
+
+const welcomeBtns: NestedInterface = {
     startNewGameBtn: {
         text: 'Start new game',
         buttonType: 'submit',
@@ -11,6 +24,6 @@ const welcomeBtns = {
         formaction: '',
         to: '/stat',
     }
-};    
+};
 
 export default welcomeBtns
