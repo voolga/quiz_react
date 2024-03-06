@@ -21,8 +21,6 @@ const settingsSclice = createSlice({
   initialState,
   reducers: {
     setCategory(state, action: PayloadAction<string>) {
-      console.log('settingsReducer');
-
       state.categoryId = action.payload
     },
     setDifficulty(state, action: PayloadAction<string>) {

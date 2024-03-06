@@ -54,7 +54,6 @@ export function QuizScreen() {
 
   if (data?.results) {
     const decodedAllQuestions = decodeQuestions(data.results)
-    console.log(data.results);
     currentQuestionData = decodedAllQuestions[currentQuestionNumber]
   }
 

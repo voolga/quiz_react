@@ -6,13 +6,10 @@ interface statSlice {
   correctAnswers: number,
   categoriesId: Record<string, number>,
   difficulty: {
-    easy: number,
-    medium: number,
-    hard: number
+    [key: string]: number
   },
   types: {
-    boolean: number,
-    multiple: number
+    [key: string]: number
   },
   time: number
 }
@@ -49,12 +46,11 @@ const statSlice = createSlice({
         state.categoriesId[action.payload] = 0
       }
       state.categoriesId[action.payload] += 1
-      console.log(state.categoriesId);
     },
-    setChoosenDiff(state, action: PayloadAction<'easy' | 'medium' | 'hard'>) {
+    setChoosenDiff(state: Draft<statSlice>, action: PayloadAction<string>) {
       state.difficulty[action.payload] += 1
     },
-    setChoosenType(state, action: PayloadAction<'boolean' | 'multiple'>) {
+    setChoosenType(state: Draft<statSlice>, action: PayloadAction<string>) {
       state.types[action.payload] += 1
     },
     setSpendedTime(state, action: PayloadAction<number>) {

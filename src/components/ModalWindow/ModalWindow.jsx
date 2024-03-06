@@ -1,5 +1,4 @@
-import { Button } from '../Button/Button'
-import { Link, Outlet, useNavigate } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 
 import s from './ModalWindow.module.css'
 
