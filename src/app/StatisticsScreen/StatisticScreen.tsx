@@ -3,29 +3,30 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { clearMyStat } from '../../redux/reducers/statReducer'
+import { timeConverter } from '../../utils/timeConverter'
+import { AppDispatch, RootState } from '../../redux/index'
 
 export function StatisticScreen() {
-  const ref = useRef(null)
+  const ref = useRef<HTMLDivElement | null>(null)
   const [hasDiv, setHasDiv] = useState(true)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   function clearStat() {
     dispatch(clearMyStat())
   }
 
   useEffect(() => {
-    setHasDiv(ref.current.querySelector('div') !== null)
+    if (ref.current) {
+      setHasDiv(ref.current.querySelector('div') !== null)
+    }
   }, [])
 
-  const gameStat = useSelector((state) => state.stat)
+  const gameStat = useSelector((state: RootState) => state.stat)
   const percentOfCorrect = ((gameStat.correctAnswers / gameStat.totalQuestionsQty) * 100).toFixed(2)
 
   const totalTimeInMs = gameStat.time
-  let totalTimeinSec = (totalTimeInMs / 1000).toFixed(0)
-  const minutes = Math.floor(totalTimeinSec / 60)
-  const seconds = totalTimeinSec % 60
+  const [formattedMinutes, formattedSeconds] = timeConverter(totalTimeInMs)
 
-  const formattedMinutes = minutes.toString().padStart(2, '0')
-  const formattedSeconds = seconds.toString().padStart(2, '0')
+  const gameStatCategories: Record<string, number> = gameStat.categoriesId;
 
   return (
     <>
@@ -50,10 +51,10 @@ export function StatisticScreen() {
               <h2 className={s.stat_item_header}>Categories:</h2>
               <div className={s.stat_item_content} ref={ref}>
                 {hasDiv ? (
-                  Object.entries(gameStat.categoriesId).map((item, i) => {
+                  Object.entries(gameStatCategories).map(([catName, catQty], i) => {
                     return (
                       <div key={i}>
-                        {item[0]}: {item[1]}
+                        {catName}: {catQty}
                       </div>
                     )
                   })

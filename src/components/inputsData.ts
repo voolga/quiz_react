@@ -1,4 +1,15 @@
-const inputs = {
+interface InputsTypes {
+    text: string,
+    id: string,
+    options: string[],
+    className: string,
+}
+
+interface InputsWrapper {
+    [key: string]: InputsTypes
+}
+
+const inputs: InputsWrapper = {
     categoryInput: {
         text: 'Choose сategory:',
         id: 'category',

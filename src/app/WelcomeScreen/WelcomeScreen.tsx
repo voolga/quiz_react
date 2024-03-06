@@ -16,72 +16,49 @@ import {
 } from '../../redux/reducers/settingsReducer'
 import { useEffect } from 'react'
 import { fetchCategories } from '../../redux/reducers/categoriesReducer'
-import inputs from './../../components/inputsData'
+import inputs from '../../components/inputsData'
+import { AppDispatch, RootState } from '../../redux/index'
 
-export const WelcomeScreen = () => {
+
+export const WelcomeScreen: React.FC = () => {
   const navigation = useNavigate()
-  const handlerFn = (to) => {
+  const handlerFn = (to: string) => {
     navigation(to)
   }
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
 
-  function setQuestionQty(newQty) {
+  function setQuestionQty(newQty: number) {
     dispatch(setNumberOfQuestion(newQty))
   }
 
-  function setCategoryValue(newCategoryId) {
+  function setCategoryValue(newCategoryId: string) {
     dispatch(setCategory(newCategoryId))
   }
 
-  function setDifficultyValue(newDiff) {
+  function setDifficultyValue(newDiff: string) {
     dispatch(setDifficulty(newDiff))
   }
 
-  function setTypeValue(newType) {
+  function setTypeValue(newType: string) {
     dispatch(setType(newType))
   }
 
-  function setTimeValue(newTime) {
-    let settedTimeInMin = newTime.slice(0, 1)
+  function setTimeValue(newTime: string) {
+    let settedTimeInMin = +newTime.slice(0, 1)
     let settedTimeInMs = settedTimeInMin * 60000
     dispatch(setTime(settedTimeInMs))
   }
-
-  const qtySelectValue = useSelector((state) => {
-    return state.settings.questionQty
-  })
-
-  const categoryValue = useSelector((state) => {
-    return state.settings.categoryId
-  })
-
-  const diffValue = useSelector((state) => {
-    return state.settings.difficulty
-  })
-
-  const typeValue = useSelector((state) => {
-    return state.settings.type
-  })
-
-  const timeValue = useSelector((state) => {
-    return state.settings.time
-  })
 
   useEffect(() => {
     dispatch(clearSettings())
     dispatch(fetchCategories())
   }, [])
 
-  const categoriesList = useSelector((state) => state.categories.categories.trivia_categories)
+  const categoriesList = useSelector((state: RootState) => state.categories.categories)
 
   return (
-    <>
-      {categoryValue}
-      {qtySelectValue}
-      {diffValue}
-      {typeValue}
-      {timeValue}
+    <> 
       <div className={s.container}>
         <div className={s.header_wrapper}>
           <Circles />

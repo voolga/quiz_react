@@ -2,22 +2,19 @@ import s from './ResultScreen.module.css'
 import { Circles } from '../../components/Circles/Circles'
 import { useSelector } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
+import { timeConverter } from '../../utils/timeConverter'
+// import { GameSettings } from '../../types';
+
 
 export function ResultScreen() {
   const gameSettings = useSelector((state) => state.settings)
   const spentTime = useSelector((state) => state.time.currentGameTime)
+  const location = useLocation()
 
   let { categoryId, questionQty, difficulty, type} = gameSettings
-
-  const location = useLocation()
   const correctAnswersValue = location.state.correctAnswersValue
 
-  let spentTimeinSec = (spentTime / 1000).toFixed(0);
-  const minutes = Math.floor(spentTimeinSec / 60)
-  const seconds = spentTimeinSec % 60
-
-  const formattedMinutes = minutes.toString().padStart(2, '0')
-  const formattedSeconds = seconds.toString().padStart(2, '0')
+  const [formattedMinutes, formattedSeconds] = timeConverter(spentTime)
 
   const category = categoryId ? location.state.category : 'Random'
   difficulty = difficulty || 'Random'
