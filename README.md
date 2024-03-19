@@ -1,4 +1,4 @@
-# Welcome to MindBender Quiz
+![image-removebg-preview](https://github.com/voolga/quiz_react/assets/88053873/d5d5d0da-2d13-403a-b332-9c3b489ecc60)
 
 **Quiz Master** – this is an interactive quiz application designed to provide an engaging and seamless gaming experience without the need for authorization. 
 
