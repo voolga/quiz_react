@@ -2,7 +2,7 @@
 
 **Quiz Master** – this is an interactive quiz application designed to provide an engaging and seamless gaming experience without the need for authorization. 
 
-To run the game on your PC, please follow the [installation guide](#3.-Installation-guide) 
+To run the game on your PC, please follow the [Installation Guide](#3-installation-guide)
 
 ## 1. Technology Stack:
 - **React**
@@ -56,7 +56,7 @@ To run the game on your PC, please follow the [installation guide](#3.-Installat
 
 ### 3. Installation guide
 
-	> Before you begin, ensure you have met the following requirements:
+> Before you begin, ensure you have met the following requirements:
 - You have installed the latest version of Node.js and npm.
 
 1. Clone repo
