@@ -1,8 +1,10 @@
 # Welcome to MindBender Quiz
 
-**Quiz Master** – это интерактивное приложение для викторин, разработанное для обеспечения увлекательного и плавного опыта игры без необходимости авторизации. Оно прекрасно работает как на десктопах, так и на мобильных устройствах, предлагая пользователям широкий спектр настроек для создания персонализированных викторин.
+**Quiz Master** – this is an interactive quiz application designed to provide an engaging and seamless gaming experience without the need for authorization. 
 
-## 1. Используемые технологии
+To run the game on your PC, please follow the [installation guide](#3.-Installation-guide) 
+
+## 1. Technology Stack:
 - **React**
 - **React Router v6**
 - **Redux Toolkit (createAsyncThunk, createSlice) + RTK query(createApi)**
@@ -11,36 +13,57 @@
 - **CSS/SCSS (module)**
 - **Responsive Design**
 
-## 2. Основные функции
+## 2. Main abilities
 
-### 2.2. Добро пожаловать на экран приветствия
+### 2.2. Welcome screen
 
-- **Настройки викторины**: выбор количества вопросов, категорий, уровня сложности, типа вопросов и времени на ответ. 
-- **Навигационные кнопки**: легкий доступ к началу викторины и просмотру статистики.
+- **Quiz Settings**: selection of the number of questions, categories, difficulty level, type of questions, and time for the answer.. 
+- **Navigation Buttons**: easy access to the start of the quiz and viewing statistics.
 
-![image](https://github.com/voolga/quiz_react/assets/88053873/453a9f9b-0001-45f5-ae91-d5a741909744)
+![image](https://github.com/voolga/quiz_react/assets/88053873/a5f0355e-be80-4962-a3f8-3a4ad15669fe)
 
-### 2.3. Основной экран викторины
+### 2.3. Quiz screen
 
-- **Текст вопроса и прогресс-бар**: отображение текущего прогресса викторины.
-- **Варианты ответов**: интерактивные кнопки для выбора ответов, поддержка как вопросов на истинность/ложность, так и множественного выбора.
-- **Таймер**: отсчет времени, добавляющий динамику в процесс ответа на вопросы.
-- **Модальные окна**: подтверждение действий пользователя, например, при завершении викторины.
+- **Loader**: aimation for waiting for an API response and game loading.
+- **Question Text and Progress Bar**: display of the current quiz progress.
+- **Answer Options**: interactive buttons for selecting answers, support for both true/false and multiple-choice questions.
+- **Timer**: time countdown, adding dynamics to the process of answering questions..
+- **Modal window**: confirmation of user actions, for example, when completing a quiz.
+- **Animated highlighting of the correct Answer**
   
-![image](https://github.com/voolga/quiz_react/assets/88053873/0daf05a8-c3a3-40a5-b545-58f9aaf70963)
+![image](https://github.com/voolga/quiz_react/assets/88053873/e76270f0-8700-45a9-97bd-df67408139ab)
+![image](https://github.com/voolga/quiz_react/assets/88053873/dec9d6a4-c476-4c75-a1f6-0ecd49574614)
 
-### 2.4. Экран результатов 
 
-- **Детали викторины**: отображение выбранных настроек викторины, включая категорию, сложность и время.
-- **Опции перезапуска и выбора новой викторины**: возможность легко начать викторину заново или выбрать новую.
+### 2.4. Result screen 
 
-![image](https://github.com/voolga/quiz_react/assets/88053873/53c514ff-8c8e-4c8e-8241-20df2605c3dd)
+- **Quiz details**: displaing of selected quiz settings, including category, difficulty, and time.
+- **New game and restart game optopns**: the ability to easily restart the quiz or choose a new one.
 
-### 2.5. Экран статистики
+![image](https://github.com/voolga/quiz_react/assets/88053873/fb18f33a-f33b-41d8-b00f-3cde274775a8)
 
-- **Сбор статистических данных**: после завершения каждой викторины данные пользователя сохраняются в Redux store. Это позволяет пользователям просматривать свою статистику в дальнейшем.
-- **Детальный учет статистики**:
-  - Количество заданных вопросов и правильных ответов пользователя накапливается для общего подсчета.
-  - Учет вопросов по категориям: например, если пользователь ответил на 10 вопросов по "Мифологии", эти данные добавляются к общему количеству вопросов по данной категории.
-  - Учет сложности вопросов: количество вопросов каждого уровня сложности суммируется отдельно.
-  - Типы вопросов: подсчет количества вопросов каждого типа
+### 2.5. Statistic screen
+
+- **Collection of Statistical Data**: After the completion of each quiz, user data is saved in the Redux store. This allows users to view their statistics later.
+- **Detailed Statistical Tracking**:
+  - The number of questions asked and the user's correct answers accumulate for an overall tally.
+  - Tracking questions by category: for example, if a user answers 10 questions on "Mythology," this data is added to the total number of questions in that category.
+  - Difficulty level tracking: the number of questions at each difficulty level is summed separately.
+  - Types of Questions: counting the number of questions of each type.
+- **Possibility of clearing statistics**: data from localStorage is cleared.
+
+ ![image](https://github.com/voolga/quiz_react/assets/88053873/518c07a7-c1b5-4321-bfa9-dabd50938f2d)
+
+### 3. Installation guide
+
+	> Before you begin, ensure you have met the following requirements:
+- You have installed the latest version of Node.js and npm.
+
+1. Clone repo
+`git clone https://github.com/voolga/quiz_react.git`
+2. Navigate to the project directory
+`cd quiz_react`
+3. Install dependencies:
+`npm install`
+4. Running the Application
+`npm run dev`
